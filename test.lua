@@ -35,7 +35,7 @@ local VynixsisLib = {
 
 local Vynixsis = Instance.new("ScreenGui")
 Vynixsis.Name = "Vynixsis"
-Vynixsis.Parent = LocalPlayer.PlayerGui
+Vynixsis.Parent = game.CoreGui
 
 function VynixsisLib:MakeMainWindow(Name, Icon)
 	local MainFrame = Instance.new("Frame")
