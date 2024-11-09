@@ -7,10 +7,11 @@ local LocalPlayer = game:GetService("Players").LocalPlayer
 local Mouse = LocalPlayer:GetMouse()
 local HttpService = game:GetService("HttpService")
 
-local Root = {
+local VynixsisLibraryRoot = {
 	name = "VynixsisLib",
 	creator = "nikr00n_dev",
 	description = "",
+	protection = true,
 }
 
 local VynixsisLib = {
@@ -67,6 +68,31 @@ local VynixsisLib = {
 				NameText_TextSize = 14,
 				NameText_TextXAlignment = "Left",
 			},
+			Notifications = {
+				Host = {
+					FrameName = "VynixsisLibNotifications",
+					BackgroundTransparency = 1,
+					Position = UDim2.new(0.843, 0, 0.01, 0),
+					Size = UDim2.new(0, 294, 0, 936),
+					ListLayout_padding = UDim.new(0, 5),
+					ListLayout_FillDirection = "Vertical",
+					ListLayout_Wraps = false,
+					ListLayout_SortOrder = "LayoutOrder",
+					ListLayout_HorizontalAlignment = "Center",
+					ListLayout_HorizontalFlex = "None",
+					ListLayout_ItemLineAlignment = "Automatic",
+					ListLayout_VerticalFlex = "None",
+					ListLayout_VerticalAlignment = "Bottom",
+				},
+				Notification = {
+					UICorner_CornerRadius = UDim.new(0.07, 1),
+					BackgroundColor = Color3.fromRGB(25, 25, 25),
+					Size = UDim2.new(0, 282,0, 82),
+					BackgroundTransparency = 0,
+					frameName = "Notification",
+					labelName = "Title",
+				}
+			},
 			Menu = {
 				Main = Color3.fromRGB(25, 0, 0),
 				Text = Color3.fromRGB(240, 240, 240),
@@ -81,9 +107,12 @@ local VynixsisLib = {
 	},
 	Variables = {
 		Main = {
-			Root = Root,
+			libRoot = VynixsisLibraryRoot,
 			SelectedSettings = "Main";
 		},
+	},
+	Protection = {
+		isProtect = VynixsisLibraryRoot.protection,
 	},
 	
 }
@@ -93,22 +122,74 @@ VynixsisGUI.Name = VynixsisLib.Settings.Root.VynixsisGUI_Name
 VynixsisGUI.Parent = VynixsisLib.Settings.Root.VynixsisGUI_Parent
 VynixsisGUI.ResetOnSpawn = VynixsisLib.Settings.Root.VynixsisGUI_ResetOnSpawn
 VynixsisGUI.Enabled = VynixsisLib.Settings.Root.VynixsisGUI_Enabled
+local NotificationsHost = Instance.new("Frame")
+NotificationsHost.Name = VynixsisLib.Settings.Main.Notifications.Host.FrameName
+NotificationsHost.Parent = VynixsisGUI
+NotificationsHost.BackgroundTransparency = VynixsisLib.Settings.Main.Notifications.Host.BackgroundTransparency
+NotificationsHost.Position = VynixsisLib.Settings.Main.Notifications.Host.Position
+NotificationsHost.Size = VynixsisLib.Settings.Main.Notifications.Host.Size
+local NHostListLayout = Instance.new("UIListLayout")
+NHostListLayout.Parent = NotificationsHost
+NHostListLayout.Padding = VynixsisLib.Settings.Main.Notifications.Host.ListLayout_padding
+NHostListLayout.FillDirection = VynixsisLib.Settings.Main.Notifications.Host.ListLayout_FillDirection
+NHostListLayout.Wraps = VynixsisLib.Settings.Main.Notifications.Host.ListLayout_Wraps
+NHostListLayout.SortOrder = VynixsisLib.Settings.Main.Notifications.Host.ListLayout_SortOrder
+NHostListLayout.HorizontalFlex = VynixsisLib.Settings.Main.Notifications.Host.ListLayout_HorizontalFlex
+NHostListLayout.HorizontalAlignment = VynixsisLib.Settings.Main.Notifications.Host.ListLayout_HorizontalAlignment
+NHostListLayout.ItemLineAlignment = VynixsisLib.Settings.Main.Notifications.Host.ListLayout_ItemLineAlignment
+NHostListLayout.VerticalFlex = VynixsisLib.Settings.Main.Notifications.Host.ListLayout_VerticalFlex
+NHostListLayout.VerticalAlignment = VynixsisLib.Settings.Main.Notifications.Host.ListLayout_VerticalAlignment
 
-function Init()
+function VynixsisLib:Init()
 	if isfolder("Vynixsis") == true then
-		print("qq")
+		print("inited")
 	else
 		makefolder("Vynixsis")
-		Init()
+		VynixsisLib:Init()
 	end
 end
 
-function ChangeTheme()
-
+function DestroyLib()
+	VynixsisGUI:Destroy()
+	script:Destroy()
 end
 
-function VynixsisLib:SendNotification(Title, Content, Time)
+function VynixsisLib:SendNotification(Title, Content, TimeDelay)
+	local Frame = Instance.new("Frame")
+	local UICorner = Instance.new("UICorner")
+	local Title = Instance.new("TextLabel")
+	local Content = Instance.new("TextButton")
 	
+	UICorner.Parent = Frame
+	UICorner.CornerRadius = VynixsisLib.Settings.Main.Notifications.Notification.UICorner_CornerRadius
+	
+	Frame.Parent = NotificationsHost
+	Frame.Name = VynixsisLib.Settings.Main.Notifications.Notification.frameName
+	Frame.BackgroundColor3 = VynixsisLib.Settings.Main.Notifications.Notification.BackgroundColor
+	Frame.BackgroundTransparency = VynixsisLib.Settings.Main.Notifications.Notification.BackgroundTransparency
+	Frame.Size = VynixsisLib.Settings.Main.Notifications.Notification.Size
+	Frame.Visible = true
+	Frame.Transparency = 1
+	
+	Title.Parent = Frame
+	Title.Name = VynixsisLib.Settings.Main.Notifications.Notification.labelName
+	
+	local function nSendAnim()
+		while Frame.Transparency > 0 do
+			Frame.Transparency -= 0.1
+			wait(0.04)
+		end
+	end
+	local function nCloseAnim()
+		while Frame.Transparency < 1 do
+			Frame.Transparency += 0.1
+			wait(0.03)
+		end
+	end
+	
+	nSendAnim()
+	wait(TimeDelay)
+	nCloseAnim()
 end
 
 function VynixsisLib:MakeMainWindow(Name, Icon)
@@ -196,7 +277,7 @@ function VynixsisLib:MakeMainWindow(Name, Icon)
 	UIFrameLibName.FontFace.Weight = Enum.FontWeight.ExtraBold
 end
 
-function MakeKeySystemWindow(Title, ValidKey, OkCallback, GetKeyLink)
+function VynixsisLib:MakeKeySystemWindow(Title, ValidKey, OkCallback, GetKeyLink)
 	local Frame = Instance.new("Frame")
 	local FrameUICorner = Instance.new("UICorner")
 	local DestroyButton = Instance.new("TextButton")
@@ -317,6 +398,8 @@ function MakeKeySystemWindow(Title, ValidKey, OkCallback, GetKeyLink)
 		KeyEnter.Visible = false
 		GetKey.Visible = false
 		CheckKey.Visible = false
+		Name.Visible = false
+		DestroyButton.Visible = false
 		Frame:TweenSize(
 			UDim2.new(0, 350,0, 100),
 			Enum.EasingDirection.Out,
@@ -327,11 +410,63 @@ function MakeKeySystemWindow(Title, ValidKey, OkCallback, GetKeyLink)
 		KeyEnter.Visible = true
 		GetKey.Visible = true
 		CheckKey.Visible = true
+		Name.Visible = true
+		DestroyButton.Visible = true
+	end
+	
+	local function DragableGUIStart()
+		local UserInputService = game:GetService("UserInputService")
+
+		local gui = Frame
+
+		local dragging
+		local dragInput
+		local dragStart
+		local startPos
+
+		local function update(input)
+			local delta = input.Position - dragStart
+			gui.Position = UDim2.new(startPos.X.Scale, startPos.X.Offset + delta.X, startPos.Y.Scale, startPos.Y.Offset + delta.Y)
+		end
+
+		gui.InputBegan:Connect(function(input)
+			if input.UserInputType == Enum.UserInputType.MouseButton1 or input.UserInputType == Enum.UserInputType.Touch then
+				dragging = true
+				dragStart = input.Position
+				startPos = gui.Position
+
+				input.Changed:Connect(function()
+					if input.UserInputState == Enum.UserInputState.End then
+						dragging = false
+					end
+				end)
+			end
+		end)
+
+		gui.InputChanged:Connect(function(input)
+			if input.UserInputType == Enum.UserInputType.MouseMovement or input.UserInputType == Enum.UserInputType.Touch then
+				dragInput = input
+			end
+		end)
+
+		UserInputService.InputChanged:Connect(function(input)
+			if input == dragInput and dragging then
+				update(input)
+			end
+		end)
 	end
 	
 	CheckKey.MouseButton1Click:Connect(function()
 		if KeyEnter.Text == validedkey then
-			
+			if OkCallback == nil then
+				print("Key: ok")
+				wait(1)
+				Frame:Destroy()
+			else
+				OkCallback()
+				wait(1)
+				Frame:Destroy()
+			end
 		else
 			KeyEnter.Text = "Invalid Key!"
 		end
@@ -341,7 +476,13 @@ function MakeKeySystemWindow(Title, ValidKey, OkCallback, GetKeyLink)
 		
 	end)
 	
+	DestroyButton.MouseButton1Click:Connect(function()
+		Frame:Destroy()
+	end)
+	
 	GUILoadAnim()
+	DragableGUIStart()
+	
 end
 
 function VynixsisLib:MakeTab()
@@ -351,4 +492,5 @@ end
 -- Code
 
 --VynixsisLib:MakeMainWindow("sdsdg", false)
-MakeKeySystemWindow("MegaKeySystemMarkmok321lolSigmav2.0")
+--VynixsisLib:MakeKeySystemWindow("MegaKeySystemMarkmok321lolSigmav2.0", "test")
+--VynixsisLib:SendNotification("sfafs", "sdfasf", 9999999)
