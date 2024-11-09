@@ -18,10 +18,10 @@ local VynixsisLib = {
 		Main = {
 			KeySystem = {
 				Background = Color3.fromRGB(25, 25, 25),
-				ButtonsBackground = Color3.fromRGB(126, 163, 24),
+				ButtonsBackground = Color3.fromRGB(40, 40, 40),
 				BorderColor = Color3.new(0, 0, 0),
 				BorderSize = "0",
-				sFont = Enum.Font.Sarpanch,
+				bFont = Enum.Font.Sarpanch,
 				Font2 = Enum.Font.SciFi,
 				BackgroundTransparency = "1",
 				BackgroundTransparency2 = "0",
@@ -62,7 +62,7 @@ local VynixsisLib = {
 				KeyEnterText = "",
 				Frame_Draggable = true,
 				NameText_Position = UDim2.new(-0.001, 0,-0.005, 0),
-				NameText_Size = UDim2.new(0, 200,0, 22),
+				NameText_Size = UDim2.new(0, 318, 0, 22),
 				NameText_TextColor = Color3.new(1, 1, 1),
 				NameText_TextSize = 14,
 				NameText_TextXAlignment = "Left",
@@ -212,106 +212,106 @@ function MakeKeySystemWindow(Title, ValidKey, OkCallback, GetKeyLink)
 	local validedkey = ValidKey
 	local getkeybuttonlink = GetKeyLink
 	
-	Frame.ZIndex = VynixsisLib.Settings.Main.KeySystem_Frame_ZIndex
-	DestroyButton.ZIndex = VynixsisLib.Settings.Main.KeySystem_DestroyButton_ZIndex
-	CheckKey.ZIndex = VynixsisLib.Settings.Main.KeySystem_CheckKey_ZIndex
-	GetKey.ZIndex = VynixsisLib.Settings.Main.KeySystem_GetKey_ZIndex
-	Name.ZIndex = VynixsisLib.Settings.Main.KeySystem_Name_ZIndex
-	KeyEnter.ZIndex = VynixsisLib.Settings.Main.KeySystem_KeyEnter_ZIndex
+	Frame.ZIndex = VynixsisLib.Settings.Main.KeySystem.Frame_ZIndex
+	DestroyButton.ZIndex = VynixsisLib.Settings.Main.KeySystem.DestroyButton_ZIndex
+	CheckKey.ZIndex = VynixsisLib.Settings.Main.KeySystem.CheckKey_ZIndex
+	GetKey.ZIndex = VynixsisLib.Settings.Main.KeySystem.GetKey_ZIndex
+	Name.ZIndex = VynixsisLib.Settings.Main.KeySystem.Name_ZIndex
+	KeyEnter.ZIndex = VynixsisLib.Settings.Main.KeySystem.KeyEnter_ZIndex
 	
 	Frame.Name = tostring(namelol) .. "_KeySystem"
 	Frame.Parent = VynixsisGUI
-	Frame.BackgroundColor3 = VynixsisLib.Settings.Main.KeySystem_Background
-	Frame.BorderColor3 = VynixsisLib.Settings.Main.KeySystem_BorderColor
+	Frame.BackgroundColor3 = VynixsisLib.Settings.Main.KeySystem.Background
+	Frame.BorderColor3 = VynixsisLib.Settings.Main.KeySystem.BorderColor
 	Frame.Position = UDim2.new(0.365, 0,0.415, 0)
 	Frame.Size = UDim2.new(0, 0, 0, 0)
-	Frame.BorderSizePixel = VynixsisLib.Settings.Main.KeySystem_BorderSize
-	Frame.Draggable = VynixsisLib.Settings.Main.KeySystem_Frame_Draggable
+	Frame.BorderSizePixel = VynixsisLib.Settings.Main.KeySystem.BorderSize
+	Frame.Draggable = VynixsisLib.Settings.Main.KeySystem.Frame_Draggable
 	
 	FrameUICorner.Parent = Frame
-	FrameUICorner.CornerRadius = VynixsisLib.Settings.Main.KeySystem_FrameUICorner_CornerRadius
+	FrameUICorner.CornerRadius = VynixsisLib.Settings.Main.KeySystem.FrameUICorner_CornerRadius
 	
 	CheckKeyUICorner.Parent = CheckKey
-	CheckKeyUICorner.CornerRadius = VynixsisLib.Settings.Main.KeySystem_CheckKeyUICorner_CornerRadius
+	CheckKeyUICorner.CornerRadius = VynixsisLib.Settings.Main.KeySystem.CheckKeyUICorner_CornerRadius
 	
 	GetKeyUICorner.Parent = GetKey
-	GetKeyUICorner.CornerRadius = VynixsisLib.Settings.Main.KeySystem_GetKeyUICorner_CornerRadius
+	GetKeyUICorner.CornerRadius = VynixsisLib.Settings.Main.KeySystem.GetKeyUICorner_CornerRadius
 	
 	KeyEnterUICorner.Parent = KeyEnter
-	KeyEnterUICorner.CornerRadius = VynixsisLib.Settings.Main.KeySystem_KeyEnterUICorner_CornerRadius
+	KeyEnterUICorner.CornerRadius = VynixsisLib.Settings.Main.KeySystem.KeyEnterUICorner_CornerRadius
 	
 	DestroyButton.Parent = Frame
 	DestroyButton.Name = "Close"
-	DestroyButton.BackgroundTransparency = VynixsisLib.Settings.Main.KeySystem_BackgroundTransparency
-	DestroyButton.BorderSizePixel = VynixsisLib.Settings.Main.KeySystem_BorderSize
-	DestroyButton.Position = VynixsisLib.Settings.Main.KeySystem_DestroyButtonPosition
-	DestroyButton.Size = VynixsisLib.Settings.Main.KeySystem_DestroyButtonSize
-	DestroyButton.Font = VynixsisLib.Settings.Main.KeySystem_Font
-	DestroyButton.FontFace.Bold = VynixsisLib.Settings.Main.KeySystem_FontBolded
-	DestroyButton.RichText = VynixsisLib.Settings.Main.KeySystem_TextRich
-	DestroyButton.Text = VynixsisLib.Settings.Main.KeySystem_DestroyButtonText
-	DestroyButton.TextColor3 = VynixsisLib.Settings.Main.KeySystem_DestroyButtonTextColor
-	DestroyButton.TextScaled = VynixsisLib.Settings.Main.KeySystem_TextScaled
-	DestroyButton.TextSize = VynixsisLib.Settings.Main.KeySystem_DestroyButtonTextSize
+	DestroyButton.BackgroundTransparency = VynixsisLib.Settings.Main.KeySystem.BackgroundTransparency
+	DestroyButton.BorderSizePixel = VynixsisLib.Settings.Main.KeySystem.BorderSize
+	DestroyButton.Position = VynixsisLib.Settings.Main.KeySystem.DestroyButtonPosition
+	DestroyButton.Size = VynixsisLib.Settings.Main.KeySystem.DestroyButtonSize
+	DestroyButton.Font = VynixsisLib.Settings.Main.KeySystem.bFont
+	DestroyButton.FontFace.Bold = VynixsisLib.Settings.Main.KeySystem.FontBolded
+	DestroyButton.RichText = VynixsisLib.Settings.Main.KeySystem.TextRich
+	DestroyButton.Text = VynixsisLib.Settings.Main.KeySystem.DestroyButtonText
+	DestroyButton.TextColor3 = VynixsisLib.Settings.Main.KeySystem.DestroyButtonTextColor
+	DestroyButton.TextScaled = VynixsisLib.Settings.Main.KeySystem.TextScaled
+	DestroyButton.TextSize = VynixsisLib.Settings.Main.KeySystem.DestroyButtonTextSize
 	
 	CheckKey.Parent = Frame
 	CheckKey.Name = "CheckKey"
-	CheckKey.BackgroundColor3 = VynixsisLib.Settings.Main.KeySystem_ButtonsBackground
-	CheckKey.BorderSizePixel = VynixsisLib.Settings.Main.KeySystem_BorderSize
-	CheckKey.Position = VynixsisLib.Settings.Main.KeySystem_CheckButtonPosition
-	CheckKey.Size = VynixsisLib.Settings.Main.KeySystem_CheckButtonSize
-	CheckKey.Font = VynixsisLib.Settings.Main.KeySystem_Font
-	CheckKey.FontFace.Bold = VynixsisLib.Settings.Main.KeySystem_FontBolded
-	CheckKey.RichText = VynixsisLib.Settings.Main.KeySystem_TextRich
-	CheckKey.Text = VynixsisLib.Settings.Main.KeySystem_CheckButtonText
-	CheckKey.TextColor3 = VynixsisLib.Settings.Main.KeySystem_CheckButtonTextColor
-	CheckKey.TextScaled = VynixsisLib.Settings.Main.KeySystem_TextScaled
-	CheckKey.TextSize = VynixsisLib.Settings.Main.KeySystem_CheckButtonTextSize
+	CheckKey.BackgroundColor3 = VynixsisLib.Settings.Main.KeySystem.ButtonsBackground
+	CheckKey.BorderSizePixel = VynixsisLib.Settings.Main.KeySystem.BorderSize
+	CheckKey.Position = VynixsisLib.Settings.Main.KeySystem.CheckButtonPosition
+	CheckKey.Size = VynixsisLib.Settings.Main.KeySystem.CheckButtonSize
+	CheckKey.Font = VynixsisLib.Settings.Main.KeySystem.bFont
+	CheckKey.FontFace.Bold = VynixsisLib.Settings.Main.KeySystem.FontBolded
+	CheckKey.RichText = VynixsisLib.Settings.Main.KeySystem.TextRich
+	CheckKey.Text = VynixsisLib.Settings.Main.KeySystem.CheckButtonText
+	CheckKey.TextColor3 = VynixsisLib.Settings.Main.KeySystem.CheckButtonTextColor
+	CheckKey.TextScaled = VynixsisLib.Settings.Main.KeySystem.TextScaled
+	CheckKey.TextSize = VynixsisLib.Settings.Main.KeySystem.CheckButtonTextSize
 	
 	GetKey.Parent = Frame
 	GetKey.Name = "GetKey"
-	GetKey.BackgroundColor3 = VynixsisLib.Settings.Main.KeySystem_ButtonsBackground
-	GetKey.BorderSizePixel = VynixsisLib.Settings.Main.KeySystem_BorderSize
-	GetKey.Position = VynixsisLib.Settings.Main.KeySystem_GetKeyButtonPosition
-	GetKey.Size = VynixsisLib.Settings.Main.KeySystem_GetKeyButtonSize
-	GetKey.Font = VynixsisLib.Settings.Main.KeySystem_Font
-	GetKey.FontFace.Bold = VynixsisLib.Settings.Main.KeySystem_FontBolded
-	GetKey.RichText = VynixsisLib.Settings.Main.KeySystem_TextRich
-	GetKey.Text = VynixsisLib.Settings.Main.KeySystem_GetKeyButtonText
-	GetKey.TextColor3 = VynixsisLib.Settings.Main.KeySystem_GetKeyButtonTextColor
-	GetKey.TextScaled = VynixsisLib.Settings.Main.KeySystem_TextScaled
-	GetKey.TextSize = VynixsisLib.Settings.Main.KeySystem_GetKeyButtonTextSize
+	GetKey.BackgroundColor3 = VynixsisLib.Settings.Main.KeySystem.ButtonsBackground
+	GetKey.BorderSizePixel = VynixsisLib.Settings.Main.KeySystem.BorderSize
+	GetKey.Position = VynixsisLib.Settings.Main.KeySystem.GetKeyButtonPosition
+	GetKey.Size = VynixsisLib.Settings.Main.KeySystem.GetKeyButtonSize
+	GetKey.Font = VynixsisLib.Settings.Main.KeySystem.bFont
+	GetKey.FontFace.Bold = VynixsisLib.Settings.Main.KeySystem.FontBolded
+	GetKey.RichText = VynixsisLib.Settings.Main.KeySystem.TextRich
+	GetKey.Text = VynixsisLib.Settings.Main.KeySystem.GetKeyButtonText
+	GetKey.TextColor3 = VynixsisLib.Settings.Main.KeySystem.GetKeyButtonTextColor
+	GetKey.TextScaled = VynixsisLib.Settings.Main.KeySystem.TextScaled
+	GetKey.TextSize = VynixsisLib.Settings.Main.KeySystem.GetKeyButtonTextSize
 	
 	KeyEnter.Parent = Frame
 	KeyEnter.Name = "KeyEnter"
-	KeyEnter.BackgroundColor3 = VynixsisLib.Settings.Main.KeySystem_ButtonsBackground
-	KeyEnter.BorderSizePixel = VynixsisLib.Settings.Main.KeySystem_BorderSize
-	KeyEnter.Position = VynixsisLib.Settings.Main.KeySystem_KeyEnterPosition
-	KeyEnter.Size = VynixsisLib.Settings.Main.KeySystem_KeyEnterSize
-	KeyEnter.Font = VynixsisLib.Settings.Main.KeySystem_Font
-	KeyEnter.FontFace.Bold = VynixsisLib.Settings.Main.KeySystem_FontBolded
-	KeyEnter.PlaceholderColor3 = VynixsisLib.Settings.Main.KeySystem_KeyEnterPlaceholderColor3
-	KeyEnter.PlaceholderText = VynixsisLib.Settings.Main.KeySystem_KeyEnterPlaceholderText
-	KeyEnter.RichText = VynixsisLib.Settings.Main.KeySystem_TextRich
-	KeyEnter.TextColor3 = VynixsisLib.Settings.Main.KeySystem_KeyEnterTextColor
-	KeyEnter.TextScaled = VynixsisLib.Settings.Main.KeySystem_TextScaled
-	KeyEnter.TextSize = VynixsisLib.Settings.Main.KeySystem_KeyEnterTextSize
-	KeyEnter.Text = VynixsisLib.Settings.Main.KeySystem_KeyEnterText
+	KeyEnter.BackgroundColor3 = VynixsisLib.Settings.Main.KeySystem.ButtonsBackground
+	KeyEnter.BorderSizePixel = VynixsisLib.Settings.Main.KeySystem.BorderSize
+	KeyEnter.Position = VynixsisLib.Settings.Main.KeySystem.KeyEnterPosition
+	KeyEnter.Size = VynixsisLib.Settings.Main.KeySystem.KeyEnterSize
+	KeyEnter.Font = VynixsisLib.Settings.Main.KeySystem.bFont
+	KeyEnter.FontFace.Bold = VynixsisLib.Settings.Main.KeySystem.FontBolded
+	KeyEnter.PlaceholderColor3 = VynixsisLib.Settings.Main.KeySystem.KeyEnterPlaceholderColor3
+	KeyEnter.PlaceholderText = VynixsisLib.Settings.Main.KeySystem.KeyEnterPlaceholderText
+	KeyEnter.RichText = VynixsisLib.Settings.Main.KeySystem.TextRich
+	KeyEnter.TextColor3 = VynixsisLib.Settings.Main.KeySystem.KeyEnterTextColor
+	KeyEnter.TextScaled = VynixsisLib.Settings.Main.KeySystem.TextScaled
+	KeyEnter.TextSize = VynixsisLib.Settings.Main.KeySystem.KeyEnterTextSize
+	KeyEnter.Text = VynixsisLib.Settings.Main.KeySystem.KeyEnterText
 	
 	Name.Parent = Frame
 	Name.Name = "Name"
-	Name.BackgroundTransparency = VynixsisLib.Settings.Main.KeySystem_BackgroundTransparency
-	Name.BorderSizePixel = VynixsisLib.Settings.Main.KeySystem_BorderSize
-	Name.Position = VynixsisLib.Settings.Main.KeySystem_NameText_Position
-	Name.Size = VynixsisLib.Settings.Main.KeySystem_NameText_Size
-	Name.Font = VynixsisLib.Settings.Main.KeySystem_Font
-	Name.FontFace.Bold = VynixsisLib.Settings.Main.KeySystem_FontBolded
-	Name.RichText = VynixsisLib.Settings.Main.KeySystem_TextRich
+	Name.BackgroundTransparency = VynixsisLib.Settings.Main.KeySystem.BackgroundTransparency
+	Name.BorderSizePixel = VynixsisLib.Settings.Main.KeySystem.BorderSize
+	Name.Position = VynixsisLib.Settings.Main.KeySystem.NameText_Position
+	Name.Size = VynixsisLib.Settings.Main.KeySystem.NameText_Size
+	Name.Font = VynixsisLib.Settings.Main.KeySystem.bFont
+	Name.FontFace.Bold = VynixsisLib.Settings.Main.KeySystem.FontBolded
+	Name.RichText = VynixsisLib.Settings.Main.KeySystem.TextRich
 	Name.Text = tostring(namelol)
-	Name.TextColor3 = VynixsisLib.Settings.Main.KeySystem_NameText_TextColor
-	Name.TextScaled = VynixsisLib.Settings.Main.KeySystem_TextScaled
-	Name.TextSize = VynixsisLib.Settings.Main.KeySystem_NameText_TextSize
-	Name.TextXAlignment = VynixsisLib.Settings.Main.KeySystem_NameText_TextXAlignment
+	Name.TextColor3 = VynixsisLib.Settings.Main.KeySystem.NameText_TextColor
+	Name.TextScaled = VynixsisLib.Settings.Main.KeySystem.TextScaled
+	Name.TextSize = VynixsisLib.Settings.Main.KeySystem.NameText_TextSize
+	Name.TextXAlignment = VynixsisLib.Settings.Main.KeySystem.NameText_TextXAlignment
 	
 	local function GUILoadAnim()
 		KeyEnter.Visible = false
@@ -351,4 +351,4 @@ end
 -- Code
 
 --VynixsisLib:MakeMainWindow("sdsdg", false)
-MakeKeySystemWindow("sfgasf")
+MakeKeySystemWindow("MegaKeySystemMarkmok321lolSigmav2.0")
