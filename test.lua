@@ -28,6 +28,7 @@ local MouseService = game:GetService("MouseService")
 ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
 ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
 -- Locals
+
 local VynixsisLibraryRoot = {
 	name = "VynixsisLib",
 	creator = "nikr00n_dev",
@@ -136,7 +137,7 @@ local VynixsisLib = {
 			},
 			Files = {
 				VLFolder = {
-					Name = "VynixsisLib"
+					Name = "VynixsisLib",
 				},
 			},
 		},
@@ -144,7 +145,8 @@ local VynixsisLib = {
 	Variables = {
 		Main = {
 			libRoot = VynixsisLibraryRoot,
-			SelectedSettings = "Main";
+			sharedtable = _G.Vynixsis,
+			sharedroottable = _G.VynixsisRoot,
 		},
 	},
 	Protection = {
