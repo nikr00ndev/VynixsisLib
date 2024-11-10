@@ -32,8 +32,15 @@ local VynixsisLibraryRoot = {
 	name = "VynixsisLib",
 	creator = "nikr00n_dev",
 	description = "",
+	versionn = "0.3",
 	protection = true,
 }
+
+_G.Vynixsis = {}
+_G.VynixsisRoot = {}
+
+_main = _G.Vynixsis
+_root = _G.VynixsisRoot
 
 local VynixsisLib = {
 	Settings = {
