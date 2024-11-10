@@ -1,0 +1,10 @@
+--[[
+
+KeySystemWindow - только кнопка get key
+sendnotification - нет
+init - нет
+maketab - нет
+mainwindow - 
+destroylib - да
+
+--]]
