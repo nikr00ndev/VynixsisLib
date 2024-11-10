@@ -1,12 +1,33 @@
--- Locals
+------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+-- Services
 
-local UserInputService = game:GetService("UserInputService")
+local UIService = game:GetService("UserInputService")
 local TweenService = game:GetService("TweenService")
 local RunService = game:GetService("RunService")
 local LocalPlayer = game:GetService("Players").LocalPlayer
 local Mouse = LocalPlayer:GetMouse()
 local HttpService = game:GetService("HttpService")
+local RSService = game:GetService("ReplicatedStorage")
+local WorkspaceService = game:GetService("Workspace")
+local ENService = game:GetService("ExperienceNotificationService")
+local RunService= game:GetService("RunService")
+local RenderService = game:GetService("RenderSettings")
+local RDService = game:GetService("RemoteDebuggerServer")
+local RFService = game:GetService("ReplicatedFirst")
+local TeamsService = game:GetService("Teams")
+local TweenService = game:GetService("TweenService")
+local TeleportService = game:GetService("TeleportService")
+local TIService = game:GetService("TouchInputService")
+local GuiService = game:GetService("GuiService")
+local KeyboardService = game:GetService("KeyboardService")
+local MouseService = game:GetService("MouseService")
 
+
+
+------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+-- Locals
 local VynixsisLibraryRoot = {
 	name = "VynixsisLib",
 	creator = "nikr00n_dev",
@@ -67,13 +88,14 @@ local VynixsisLib = {
 				NameText_TextColor = Color3.new(1, 1, 1),
 				NameText_TextSize = 14,
 				NameText_TextXAlignment = "Left",
+				FramePosition = UDim2.new(0.365, 0,0.415, 0),
 			},
 			Notifications = {
 				Host = {
 					FrameName = "VynixsisLibNotifications",
 					BackgroundTransparency = 1,
 					Position = UDim2.new(0.843, 0, 0.01, 0),
-					Size = UDim2.new(0, 294, 0, 936),
+					Size = UDim2.new(0.153, 0,0.976, 0),
 					ListLayout_padding = UDim.new(0, 5),
 					ListLayout_FillDirection = "Vertical",
 					ListLayout_Wraps = false,
@@ -99,10 +121,17 @@ local VynixsisLib = {
 			},
 		},
 		Root = {
-			VynixsisGUI_Name = "Vynixsis",
-			VynixsisGUI_Parent = LocalPlayer.PlayerGui,
-			VynixsisGUI_ResetOnSpawn = false,
-			VynixsisGUI_Enabled = true,
+			VynixsisGUI = {
+				Name = "Vynixsis",
+				Parent = LocalPlayer.PlayerGui,
+				ResetOnSpawn = false,
+				Enabled = true,
+			},
+			Files = {
+				VLFolder = {
+					Name = "VynixsisLib"
+				},
+			},
 		},
 	},
 	Variables = {
@@ -117,11 +146,17 @@ local VynixsisLib = {
 	
 }
 
+
+
+------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+-- GUI
+
 local VynixsisGUI = Instance.new("ScreenGui")
-VynixsisGUI.Name = VynixsisLib.Settings.Root.VynixsisGUI_Name
-VynixsisGUI.Parent = VynixsisLib.Settings.Root.VynixsisGUI_Parent
-VynixsisGUI.ResetOnSpawn = VynixsisLib.Settings.Root.VynixsisGUI_ResetOnSpawn
-VynixsisGUI.Enabled = VynixsisLib.Settings.Root.VynixsisGUI_Enabled
+VynixsisGUI.Name = VynixsisLib.Settings.Root.VynixsisGUI.Name
+VynixsisGUI.Parent = VynixsisLib.Settings.Root.VynixsisGUI.Parent
+VynixsisGUI.ResetOnSpawn = VynixsisLib.Settings.Root.VynixsisGUI.ResetOnSpawn
+VynixsisGUI.Enabled = VynixsisLib.Settings.Root.VynixsisGUI.Enabled
 local NotificationsHost = Instance.new("Frame")
 NotificationsHost.Name = VynixsisLib.Settings.Main.Notifications.Host.FrameName
 NotificationsHost.Parent = VynixsisGUI
@@ -140,16 +175,40 @@ NHostListLayout.ItemLineAlignment = VynixsisLib.Settings.Main.Notifications.Host
 NHostListLayout.VerticalFlex = VynixsisLib.Settings.Main.Notifications.Host.ListLayout_VerticalFlex
 NHostListLayout.VerticalAlignment = VynixsisLib.Settings.Main.Notifications.Host.ListLayout_VerticalAlignment
 
-function VynixsisLib:Init()
-	if isfolder("Vynixsis") == true then
-		print("inited")
-	else
-		makefolder("Vynixsis")
-		VynixsisLib:Init()
-	end
-end
 
-function DestroyLib()
+
+------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+-- Init
+
+local VLFolder = Instance.new("Folder")
+VLFolder.Parent = RSService
+VLFolder.Name = VynixsisLib.Settings.Root.Files.VLFolder.Name
+
+--if isfolder("VynixsisLib") == false then
+--	makefolder("VynixsisLib")
+--end
+
+
+------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+-- Up Code
+
+
+
+
+------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+--Functions
+
+
+
+
+------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+-- Input Functions
+
+function VynixsisLib:DestroyLib()
 	VynixsisGUI:Destroy()
 	script:Destroy()
 end
@@ -304,7 +363,7 @@ function VynixsisLib:MakeKeySystemWindow(Title, ValidKey, OkCallback, GetKeyLink
 	Frame.Parent = VynixsisGUI
 	Frame.BackgroundColor3 = VynixsisLib.Settings.Main.KeySystem.Background
 	Frame.BorderColor3 = VynixsisLib.Settings.Main.KeySystem.BorderColor
-	Frame.Position = UDim2.new(0.365, 0,0.415, 0)
+	Frame.Position = VynixsisLib.Settings.Main.KeySystem.FramePosition
 	Frame.Size = UDim2.new(0, 0, 0, 0)
 	Frame.BorderSizePixel = VynixsisLib.Settings.Main.KeySystem.BorderSize
 	Frame.Draggable = VynixsisLib.Settings.Main.KeySystem.Frame_Draggable
@@ -401,7 +460,7 @@ function VynixsisLib:MakeKeySystemWindow(Title, ValidKey, OkCallback, GetKeyLink
 		Name.Visible = false
 		DestroyButton.Visible = false
 		Frame:TweenSize(
-			UDim2.new(0, 350,0, 100),
+			UDim2.new(0.182, 0,0.104, 0),
 			Enum.EasingDirection.Out,
 			Enum.EasingStyle.Sine,
 			2
@@ -489,8 +548,20 @@ function VynixsisLib:MakeTab()
 	
 end
 
--- Code
+
+
+------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+-- Down Code
 
 --VynixsisLib:MakeMainWindow("sdsdg", false)
---VynixsisLib:MakeKeySystemWindow("MegaKeySystemMarkmok321lolSigmav2.0", "test")
---VynixsisLib:SendNotification("sfafs", "sdfasf", 9999999)
+VynixsisLib:MakeKeySystemWindow("MegaKeySystemMarkmok321lolSigmav2.0", "test")
+VynixsisLib:SendNotification("sfafs", "sdfasf", 9999999)
+
+
+
+
+
+------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+--End
