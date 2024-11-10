@@ -153,6 +153,11 @@ local VynixsisLib = {
 	
 }
 
+_root.version = VynixsisLibraryRoot.versionn
+_root.name = "VynixsisLib"
+_root.protection = VynixsisLibraryRoot.protection
+_root.creator = VynixsisLibraryRoot.creator
+
 
 
 ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
