@@ -199,9 +199,9 @@ local VLFolder = Instance.new("Folder")
 VLFolder.Parent = RSService
 VLFolder.Name = VynixsisLib.Settings.Root.Files.VLFolder.Name
 
---if isfolder("VynixsisLib") == false then
---	makefolder("VynixsisLib")
---end
+if isfolder("VynixsisLib") == false then
+	makefolder("VynixsisLib")
+end
 
 
 ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
