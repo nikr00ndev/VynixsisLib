@@ -68,13 +68,13 @@ local VynixsisLib = {
 				KeyEnterPlaceholderColor3 = Color3.fromRGB(255, 255, 255),
 				KeyEnterPlaceholderText = "Key",
 				DestroyButtonText = "X",
-				DestroyButtonPosition = UDim2.new(0.931, 0,0, 0),
+				DestroyButtonPosition = UDim2.new(0, 325,0, 0),
 				DestroyButtonSize = UDim2.new(0, 24,0, 21),
-				CheckButtonPosition = UDim2.new(0.041, 0,0.327, 0),
+				CheckButtonPosition = UDim2.new(0, 14,0, 32),
 				CheckButtonSize = UDim2.new(0, 151,0, 24),
 				CheckButtonText = "Check Key",
 				GetKeyButtonText = "Get Key",
-				GetKeyButtonPosition = UDim2.new(0.041, 0,0.587, 0),
+				GetKeyButtonPosition = UDim2.new(0, 14,0, 57),
 				GetKeyButtonSize = UDim2.new(0, 151,0, 24),
 				Frame_ZIndex = 990,
 				DestroyButton_ZIndex = 991,
@@ -86,7 +86,7 @@ local VynixsisLib = {
 				CheckKeyUICorner_CornerRadius = UDim.new(0.18, 1),
 				GetKeyUICorner_CornerRadius = UDim.new(0.18, 1),
 				KeyEnterUICorner_CornerRadius = UDim.new(0.08, 1),
-				KeyEnterPosition = UDim2.new(0.496, 0,0.329, 0),
+				KeyEnterPosition = UDim2.new(0, 173,0, 32),
 				KeyEnterSize = UDim2.new(0, 163,0, 50),
 				KeyEnterText = "",
 				Frame_Draggable = true,
@@ -96,6 +96,7 @@ local VynixsisLib = {
 				NameText_TextSize = 14,
 				NameText_TextXAlignment = "Left",
 				FramePosition = UDim2.new(0.365, 0,0.415, 0),
+				Frame_EndSize = UDim2.new(0, 350,0, 100),
 			},
 			Notifications = {
 				Host = {
@@ -120,11 +121,41 @@ local VynixsisLib = {
 					BackgroundTransparency = 0,
 					frameName = "Notification",
 					labelName = "Title",
+					titlePosition = UDim2.new(0.021, 0,0, 0),
+					titleSize = UDim2.new(0, 270,0, 18),
+					titleTextColor3 = Color3.fromRGB(255, 255, 255),
+					titleBackgroundTransparency = 1,
+					bFont = Enum.Font.Sarpanch,
+					BorderSizePixel = 0,
+					textSize = 16,
+					textWRaped = true,
+					TextXAlignment = "Left",
+					isBoldEd = true,
+					contentName = "Content",
+					contentPosition = UDim2.new(0.021, 0,0.22, 0),
+					contentSize = UDim2.new(0, 270,0, 64),
+					contentTextColor3 = Color3.fromRGB(255, 255, 255),
+					contentBackgroundTransparency = 1,
+					contentFont = Enum.Font.Sarpanch,
+					contentBorderSizePixel = 0,
+					contentTextSize = 19,
+					contentTextWrapped = true,
+					FrameZIndex = 700,
+					titleZindex = 701,
+					contentzIndex = 701,
 				}
 			},
 			Menu = {
 				Main = Color3.fromRGB(25, 0, 0),
 				Text = Color3.fromRGB(240, 240, 240),
+			},
+			Intro = {
+				frameZIndex = 9998,
+				libnameZIndex = 9999,
+				libimageZIndex = 9999,
+				frameName = "VynixsisLibLoading",
+				backgroundtranspery = 1,
+				bordersizepixel = 0,
 			},
 		},
 		Root = {
@@ -133,10 +164,14 @@ local VynixsisLib = {
 				Parent = LocalPlayer.PlayerGui,
 				ResetOnSpawn = false,
 				Enabled = true,
+				NotificationHostZIndex = 500,
 			},
 			Files = {
 				VLFolder = {
 					Name = "VynixsisLib",
+				},
+				ScriptsFolder = {
+					Name = "ScriptsFiles",
 				},
 			},
 		},
@@ -151,7 +186,7 @@ local VynixsisLib = {
 	Protection = {
 		isProtect = VynixsisLibraryRoot.protection,
 	},
-	
+
 }
 
 _root.version = VynixsisLibraryRoot.versionn
@@ -188,25 +223,76 @@ NHostListLayout.ItemLineAlignment = VynixsisLib.Settings.Main.Notifications.Host
 NHostListLayout.VerticalFlex = VynixsisLib.Settings.Main.Notifications.Host.ListLayout_VerticalFlex
 NHostListLayout.VerticalAlignment = VynixsisLib.Settings.Main.Notifications.Host.ListLayout_VerticalAlignment
 
+NotificationsHost.ZIndex = VynixsisLib.Settings.Root.VynixsisGUI.NotificationHostZIndex
+
 
 
 ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
 ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
 -- Init
 
+if RSService:FindFirstChild("VynixsisLib") then
+	RSService.VynixsisLib:Destroy()
+end
+
 local VLFolder = Instance.new("Folder")
 VLFolder.Parent = RSService
 VLFolder.Name = VynixsisLib.Settings.Root.Files.VLFolder.Name
+local RootFolderForScripts = Instance.new("Folder")
+RootFolderForScripts.Parent = VLFolder
+RootFolderForScripts.Name = VynixsisLib.Settings.Root.Files.ScriptsFolder.Name
 
-if isfolder("VynixsisLib") == false then
-	makefolder("VynixsisLib")
+--if isfolder("VynixsisLib") == false then
+--	makefolder("VynixsisLib")
+--end
+
+
+function Intro()
+	local Frame = Instance.new("Frame")
+	local LImage = Instance.new("ImageLabel")
+	local LName = Instance.new("TextLabel")
+	
+	Frame.ZIndex = VynixsisLib.Settings.Main.Intro.frameZIndex
+	LImage.ZIndex = VynixsisLib.Settings.Main.Intro.libimageZIndex
+	LName.ZIndex = VynixsisLib.Settings.Main.Intro.libnameZIndex
+	
+	Frame.Parent = VynixsisGUI
+	Frame.Name = "VynixsisLibLoading"
+	Frame.BackgroundTransparency = 1
+	Frame.BorderSizePixel = 0
+	Frame.Position = UDim2.new(0.43, 0,0.46, 0)
+	Frame.Size = UDim2.new(0, 271,0, 76)
+	
+	LImage.Parent = Frame
+	LName.Parent = Frame
+	
+	LImage.Name = "LibImage"
+	LImage.BackgroundTransparency = 1
+	LImage.BorderSizePixel = 0
+	LImage.Position = UDim2.new(0.406, 0,-0.697, 0)
+	LImage.Size = UDim2.new(0, 50,0, 50)
+	LImage.Image = "http://www.roblox.com/asset/?id=100102059567697"
+	LImage.ImageColor3 = Color3.fromRGB(255, 255, 255)
+	
+	LName.Name = "LibName"
+	LName.BackgroundTransparency = 1
+	LName.BorderSizePixel = 0
+	LName.Position = UDim2.new(0.273, 0,0.25, 0)
+	LName.Size = UDim2.new(0, 122,0, 38)
+	LName.TextColor3 = Color3.fromRGB(255, 255, 255)
+	LName.Text = "Vynixsis"
+	LName.Font = Enum.Font.Sarpanch
+	LName.TextSize = 30
+	LName.TextWrapped = true
 end
+
 
 
 ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
 ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
 -- Up Code
 
+Intro()
 
 
 
@@ -224,17 +310,22 @@ end
 function VynixsisLib:DestroyLib()
 	VynixsisGUI:Destroy()
 	script:Destroy()
+	VLFolder:Destroy()
 end
 
-function VynixsisLib:SendNotification(Title, Content, TimeDelay)
+function VynixsisLib:SendNotification(TitleContent, ContentContent, TimeDelay)
 	local Frame = Instance.new("Frame")
 	local UICorner = Instance.new("UICorner")
 	local Title = Instance.new("TextLabel")
 	local Content = Instance.new("TextButton")
 	
+	Frame.ZIndex = VynixsisLib.Settings.Main.Notifications.Notification.FrameZIndex
+	Title.ZIndex = VynixsisLib.Settings.Main.Notifications.Notification.titleZindex
+	Content.ZIndex = VynixsisLib.Settings.Main.Notifications.Notification.contentzIndex
+	
 	UICorner.Parent = Frame
 	UICorner.CornerRadius = VynixsisLib.Settings.Main.Notifications.Notification.UICorner_CornerRadius
-	
+
 	Frame.Parent = NotificationsHost
 	Frame.Name = VynixsisLib.Settings.Main.Notifications.Notification.frameName
 	Frame.BackgroundColor3 = VynixsisLib.Settings.Main.Notifications.Notification.BackgroundColor
@@ -242,28 +333,64 @@ function VynixsisLib:SendNotification(Title, Content, TimeDelay)
 	Frame.Size = VynixsisLib.Settings.Main.Notifications.Notification.Size
 	Frame.Visible = true
 	Frame.Transparency = 1
-	
+
 	Title.Parent = Frame
 	Title.Name = VynixsisLib.Settings.Main.Notifications.Notification.labelName
+	Title.Position = VynixsisLib.Settings.Main.Notifications.Notification.titlePosition
+	Title.Size = VynixsisLib.Settings.Main.Notifications.Notification.titleSize
+	Title.TextColor3 = VynixsisLib.Settings.Main.Notifications.Notification.titleTextColor3
+	Title.BackgroundTransparency = VynixsisLib.Settings.Main.Notifications.Notification.titleBackgroundTransparency
+	Title.Font = VynixsisLib.Settings.Main.Notifications.Notification.bFont
+	Title.Text = tostring(TitleContent)
+	Title.BorderSizePixel = VynixsisLib.Settings.Main.Notifications.Notification.BorderSizePixel
+	Title.TextSize = VynixsisLib.Settings.Main.Notifications.Notification.textSize
+	Title.TextWrapped = VynixsisLib.Settings.Main.Notifications.Notification.textWRaped
+	Title.TextXAlignment = VynixsisLib.Settings.Main.Notifications.Notification.TextXAlignment
+	Title.FontFace.Bold = VynixsisLib.Settings.Main.Notifications.Notification.isBoldEd
+	Title.TextTransparency = 1
+	
+	Content.Parent = Frame
+	Content.Name = VynixsisLib.Settings.Main.Notifications.Notification.contentName
+	Content.Position = VynixsisLib.Settings.Main.Notifications.Notification.contentPosition
+	Content.Size = VynixsisLib.Settings.Main.Notifications.Notification.contentSize
+	Content.TextColor3 = VynixsisLib.Settings.Main.Notifications.Notification.contentTextColor3
+	Content.BackgroundTransparency = VynixsisLib.Settings.Main.Notifications.Notification.contentBackgroundTransparency
+	Content.Font = VynixsisLib.Settings.Main.Notifications.Notification.contentFont
+	Content.Text = tostring(ContentContent)
+	Content.BorderSizePixel = VynixsisLib.Settings.Main.Notifications.Notification.contentBorderSizePixel
+	Content.TextSize = VynixsisLib.Settings.Main.Notifications.Notification.contentTextSize
+	Content.TextWrapped = VynixsisLib.Settings.Main.Notifications.Notification.contentTextWrapped
+	Content.FontFace.Bold = VynixsisLib.Settings.Main.Notifications.Notification.isBoldEd
+	Content.TextTransparency = 1
+	
+	Content.MouseButton1Click:Connect(function()
+		Frame:Destroy()
+	end)
 	
 	local function nSendAnim()
 		while Frame.Transparency > 0 do
 			Frame.Transparency -= 0.1
+			Title.TextTransparency -= 0.1
+			Content.TextTransparency -= 0.1
 			wait(0.04)
 		end
 	end
 	local function nCloseAnim()
 		while Frame.Transparency < 1 do
 			Frame.Transparency += 0.1
+			Title.TextTransparency += 0.1
+			Content.TextTransparency += 0.1
 			wait(0.03)
 		end
 	end
-	
+
 	nSendAnim()
 	wait(TimeDelay)
 	nCloseAnim()
+	wait(0.5)
+	Frame:Destroy()
 end
-
+--[[
 function VynixsisLib:MakeMainWindow(Name, Icon)
 	local MainFrame = Instance.new("Frame")
 	local MainFrameUICorner = Instance.new("UICorner")
@@ -348,9 +475,9 @@ function VynixsisLib:MakeMainWindow(Name, Icon)
 	UIFrameLibName.TextYAlignment = "Center"
 	UIFrameLibName.FontFace.Weight = Enum.FontWeight.ExtraBold
 end
-
-function VynixsisLib:MakeKeySystemWindow(Title, ValidKey, OkCallback, GetKeyLink)
-	local Frame = Instance.new("Frame")
+--]]
+function VynixsisLib:MakeKeySystemWindow(Title, ValidKey, OkCallback, GetKeyLink, DestroyCallack)
+	local FrameQQQ = Instance.new("Frame")
 	local FrameUICorner = Instance.new("UICorner")
 	local DestroyButton = Instance.new("TextButton")
 	local CheckKey = Instance.new("TextButton")
@@ -360,40 +487,40 @@ function VynixsisLib:MakeKeySystemWindow(Title, ValidKey, OkCallback, GetKeyLink
 	local Name = Instance.new("TextLabel")
 	local KeyEnter = Instance.new("TextBox")
 	local KeyEnterUICorner = Instance.new("UICorner")
-	
+
 	local namelol = Title
 	local validedkey = ValidKey
 	local getkeybuttonlink = GetKeyLink
-	
-	Frame.ZIndex = VynixsisLib.Settings.Main.KeySystem.Frame_ZIndex
+
+	FrameQQQ.ZIndex = VynixsisLib.Settings.Main.KeySystem.Frame_ZIndex
 	DestroyButton.ZIndex = VynixsisLib.Settings.Main.KeySystem.DestroyButton_ZIndex
 	CheckKey.ZIndex = VynixsisLib.Settings.Main.KeySystem.CheckKey_ZIndex
 	GetKey.ZIndex = VynixsisLib.Settings.Main.KeySystem.GetKey_ZIndex
 	Name.ZIndex = VynixsisLib.Settings.Main.KeySystem.Name_ZIndex
 	KeyEnter.ZIndex = VynixsisLib.Settings.Main.KeySystem.KeyEnter_ZIndex
-	
-	Frame.Name = tostring(namelol) .. "_KeySystem"
-	Frame.Parent = VynixsisGUI
-	Frame.BackgroundColor3 = VynixsisLib.Settings.Main.KeySystem.Background
-	Frame.BorderColor3 = VynixsisLib.Settings.Main.KeySystem.BorderColor
-	Frame.Position = VynixsisLib.Settings.Main.KeySystem.FramePosition
-	Frame.Size = UDim2.new(0, 0, 0, 0)
-	Frame.BorderSizePixel = VynixsisLib.Settings.Main.KeySystem.BorderSize
-	Frame.Draggable = VynixsisLib.Settings.Main.KeySystem.Frame_Draggable
-	
-	FrameUICorner.Parent = Frame
+
+	FrameQQQ.Name = tostring(namelol) .. "_KeySystem"
+	FrameQQQ.Parent = VynixsisGUI
+	FrameQQQ.BackgroundColor3 = VynixsisLib.Settings.Main.KeySystem.Background
+	FrameQQQ.BorderColor3 = VynixsisLib.Settings.Main.KeySystem.BorderColor
+	FrameQQQ.Position = VynixsisLib.Settings.Main.KeySystem.FramePosition
+	FrameQQQ.Size = UDim2.new(0, 0, 0, 0)
+	FrameQQQ.BorderSizePixel = VynixsisLib.Settings.Main.KeySystem.BorderSize
+	FrameQQQ.Draggable = VynixsisLib.Settings.Main.KeySystem.Frame_Draggable
+
+	FrameUICorner.Parent = FrameQQQ
 	FrameUICorner.CornerRadius = VynixsisLib.Settings.Main.KeySystem.FrameUICorner_CornerRadius
-	
+
 	CheckKeyUICorner.Parent = CheckKey
 	CheckKeyUICorner.CornerRadius = VynixsisLib.Settings.Main.KeySystem.CheckKeyUICorner_CornerRadius
-	
+
 	GetKeyUICorner.Parent = GetKey
 	GetKeyUICorner.CornerRadius = VynixsisLib.Settings.Main.KeySystem.GetKeyUICorner_CornerRadius
-	
+
 	KeyEnterUICorner.Parent = KeyEnter
 	KeyEnterUICorner.CornerRadius = VynixsisLib.Settings.Main.KeySystem.KeyEnterUICorner_CornerRadius
-	
-	DestroyButton.Parent = Frame
+
+	DestroyButton.Parent = FrameQQQ
 	DestroyButton.Name = "Close"
 	DestroyButton.BackgroundTransparency = VynixsisLib.Settings.Main.KeySystem.BackgroundTransparency
 	DestroyButton.BorderSizePixel = VynixsisLib.Settings.Main.KeySystem.BorderSize
@@ -406,8 +533,8 @@ function VynixsisLib:MakeKeySystemWindow(Title, ValidKey, OkCallback, GetKeyLink
 	DestroyButton.TextColor3 = VynixsisLib.Settings.Main.KeySystem.DestroyButtonTextColor
 	DestroyButton.TextScaled = VynixsisLib.Settings.Main.KeySystem.TextScaled
 	DestroyButton.TextSize = VynixsisLib.Settings.Main.KeySystem.DestroyButtonTextSize
-	
-	CheckKey.Parent = Frame
+
+	CheckKey.Parent = FrameQQQ
 	CheckKey.Name = "CheckKey"
 	CheckKey.BackgroundColor3 = VynixsisLib.Settings.Main.KeySystem.ButtonsBackground
 	CheckKey.BorderSizePixel = VynixsisLib.Settings.Main.KeySystem.BorderSize
@@ -420,8 +547,8 @@ function VynixsisLib:MakeKeySystemWindow(Title, ValidKey, OkCallback, GetKeyLink
 	CheckKey.TextColor3 = VynixsisLib.Settings.Main.KeySystem.CheckButtonTextColor
 	CheckKey.TextScaled = VynixsisLib.Settings.Main.KeySystem.TextScaled
 	CheckKey.TextSize = VynixsisLib.Settings.Main.KeySystem.CheckButtonTextSize
-	
-	GetKey.Parent = Frame
+
+	GetKey.Parent = FrameQQQ
 	GetKey.Name = "GetKey"
 	GetKey.BackgroundColor3 = VynixsisLib.Settings.Main.KeySystem.ButtonsBackground
 	GetKey.BorderSizePixel = VynixsisLib.Settings.Main.KeySystem.BorderSize
@@ -434,8 +561,8 @@ function VynixsisLib:MakeKeySystemWindow(Title, ValidKey, OkCallback, GetKeyLink
 	GetKey.TextColor3 = VynixsisLib.Settings.Main.KeySystem.GetKeyButtonTextColor
 	GetKey.TextScaled = VynixsisLib.Settings.Main.KeySystem.TextScaled
 	GetKey.TextSize = VynixsisLib.Settings.Main.KeySystem.GetKeyButtonTextSize
-	
-	KeyEnter.Parent = Frame
+
+	KeyEnter.Parent = FrameQQQ
 	KeyEnter.Name = "KeyEnter"
 	KeyEnter.BackgroundColor3 = VynixsisLib.Settings.Main.KeySystem.ButtonsBackground
 	KeyEnter.BorderSizePixel = VynixsisLib.Settings.Main.KeySystem.BorderSize
@@ -450,8 +577,8 @@ function VynixsisLib:MakeKeySystemWindow(Title, ValidKey, OkCallback, GetKeyLink
 	KeyEnter.TextScaled = VynixsisLib.Settings.Main.KeySystem.TextScaled
 	KeyEnter.TextSize = VynixsisLib.Settings.Main.KeySystem.KeyEnterTextSize
 	KeyEnter.Text = VynixsisLib.Settings.Main.KeySystem.KeyEnterText
-	
-	Name.Parent = Frame
+
+	Name.Parent = FrameQQQ
 	Name.Name = "Name"
 	Name.BackgroundTransparency = VynixsisLib.Settings.Main.KeySystem.BackgroundTransparency
 	Name.BorderSizePixel = VynixsisLib.Settings.Main.KeySystem.BorderSize
@@ -465,15 +592,15 @@ function VynixsisLib:MakeKeySystemWindow(Title, ValidKey, OkCallback, GetKeyLink
 	Name.TextScaled = VynixsisLib.Settings.Main.KeySystem.TextScaled
 	Name.TextSize = VynixsisLib.Settings.Main.KeySystem.NameText_TextSize
 	Name.TextXAlignment = VynixsisLib.Settings.Main.KeySystem.NameText_TextXAlignment
-	
+
 	local function GUILoadAnim()
 		KeyEnter.Visible = false
 		GetKey.Visible = false
 		CheckKey.Visible = false
 		Name.Visible = false
 		DestroyButton.Visible = false
-		Frame:TweenSize(
-			UDim2.new(0.182, 0,0.104, 0),
+		FrameQQQ:TweenSize(
+			UDim2.new(0, 350,0, 100),
 			Enum.EasingDirection.Out,
 			Enum.EasingStyle.Sine,
 			2
@@ -485,11 +612,11 @@ function VynixsisLib:MakeKeySystemWindow(Title, ValidKey, OkCallback, GetKeyLink
 		Name.Visible = true
 		DestroyButton.Visible = true
 	end
-	
+
 	local function DragableGUIStart()
 		local UserInputService = game:GetService("UserInputService")
 
-		local gui = Frame
+		local gui = FrameQQQ
 
 		local dragging
 		local dragInput
@@ -527,38 +654,45 @@ function VynixsisLib:MakeKeySystemWindow(Title, ValidKey, OkCallback, GetKeyLink
 			end
 		end)
 	end
-	
+
 	CheckKey.MouseButton1Click:Connect(function()
 		if KeyEnter.Text == validedkey then
 			if OkCallback == nil then
 				print("Key: ok")
 				wait(1)
-				Frame:Destroy()
+				FrameQQQ:Destroy()
 			else
 				OkCallback()
 				wait(1)
-				Frame:Destroy()
+				FrameQQQ:Destroy()
 			end
 		else
 			KeyEnter.Text = "Invalid Key!"
 		end
 	end)
-	
+
 	GetKey.MouseButton1Click:Connect(function()
-		
+		print("Get Key Here: " .. GetKeyLink)
+		setclipboard(GetKeyLink)
+		KeyEnter.Text = "Link printed in console (F9) and copied to clipboard!"
 	end)
-	
+
 	DestroyButton.MouseButton1Click:Connect(function()
-		Frame:Destroy()
+		if DestroyCallack == nil then
+			FrameQQQ:Destroy()
+		else
+			DestroyCallack()
+			FrameQQQ:Destroy()
+		end
 	end)
-	
+
 	GUILoadAnim()
 	DragableGUIStart()
-	
+
 end
 
 function VynixsisLib:MakeTab()
-	
+
 end
 
 
@@ -569,8 +703,9 @@ end
 
 --VynixsisLib:MakeMainWindow("sdsdg", false)
 VynixsisLib:MakeKeySystemWindow("MegaKeySystemMarkmok321lolSigmav2.0", "test")
-VynixsisLib:SendNotification("sfafs", "sdfasf", 9999999)
-
+VynixsisLib:SendNotification("sfafs", "sdfasf", 1)
+VynixsisLib:SendNotification("sfafs", "sdfasf", 2)
+VynixsisLib:SendNotification("sfafs", "sdfasf", 4)
 
 
 
