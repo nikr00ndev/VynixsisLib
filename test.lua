@@ -43,6 +43,9 @@ _main = _G.Vynixsis
 _root = _G.VynixsisRoot
 
 local VynixsisLib = {
+	Assets = {
+		
+	},
 	Settings = {
 		Main = {
 			KeySystem = {
@@ -161,7 +164,7 @@ local VynixsisLib = {
 		Root = {
 			VynixsisGUI = {
 				Name = "Vynixsis",
-				Parent = LocalPlayer.PlayerGui,
+				Parent = LocalPlayer:WaitForChild("PlayerGui"),
 				ResetOnSpawn = false,
 				Enabled = true,
 				NotificationHostZIndex = 500,
@@ -279,6 +282,7 @@ function Intro()
 	LName.BorderSizePixel = 0
 	LName.Position = UDim2.new(0.273, 0,0.25, 0)
 	LName.Size = UDim2.new(0, 122,0, 38)
+	
 	LName.TextColor3 = Color3.fromRGB(255, 255, 255)
 	LName.Text = "Vynixsis"
 	LName.Font = Enum.Font.Sarpanch
@@ -476,7 +480,7 @@ function VynixsisLib:MakeMainWindow(Name, Icon)
 	UIFrameLibName.FontFace.Weight = Enum.FontWeight.ExtraBold
 end
 --]]
-function VynixsisLib:MakeKeySystemWindow(Title, ValidKey, OkCallback, GetKeyLink, DestroyCallack)
+function VynixsisLib:MakeKeySystemWindow(Title, ValidKey, OkCallback, GetKeyLink, DestroyCallback)
 	local FrameQQQ = Instance.new("Frame")
 	local FrameUICorner = Instance.new("UICorner")
 	local DestroyButton = Instance.new("TextButton")
@@ -678,10 +682,10 @@ function VynixsisLib:MakeKeySystemWindow(Title, ValidKey, OkCallback, GetKeyLink
 	end)
 
 	DestroyButton.MouseButton1Click:Connect(function()
-		if DestroyCallack == nil then
+		if DestroyCallback == nil then
 			FrameQQQ:Destroy()
 		else
-			DestroyCallack()
+			DestroyCallback()
 			FrameQQQ:Destroy()
 		end
 	end)
@@ -691,10 +695,17 @@ function VynixsisLib:MakeKeySystemWindow(Title, ValidKey, OkCallback, GetKeyLink
 
 end
 
+function VynixsisLib:MakeDebugWindow(Title, DestroyCallback)
+	
+end
+
+function VynixsisLib:MakePremiumBuyWindow()
+	
+end
+
 function VynixsisLib:MakeTab()
 
 end
-
 
 
 ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
@@ -702,11 +713,10 @@ end
 -- Down Code
 
 --VynixsisLib:MakeMainWindow("sdsdg", false)
-VynixsisLib:MakeKeySystemWindow("MegaKeySystemMarkmok321lolSigmav2.0", "test")
+VynixsisLib:MakeKeySystemWindow("vova", "test")
 VynixsisLib:SendNotification("sfafs", "sdfasf", 1)
 VynixsisLib:SendNotification("sfafs", "sdfasf", 2)
 VynixsisLib:SendNotification("sfafs", "sdfasf", 4)
-
 
 
 
