@@ -288,6 +288,41 @@ function Intro()
 	LName.Font = Enum.Font.Sarpanch
 	LName.TextSize = 30
 	LName.TextWrapped = true
+	
+	local function introstart()
+		local speed1 = 0.4
+		local speed2 = 1.2
+		local speed3 = 1
+		LImage.Visible = true
+		LName.Visible = false
+		LImage:TweenPosition(
+			UDim2.new(0.41, 0,0.171, 0),
+			Enum.EasingDirection.Out,
+			Enum.EasingStyle.Sine,
+			speed1
+		)
+		wait(speed1)
+		LImage:TweenPosition(
+			UDim2.new(0.111, 0,0.158, 0),
+			Enum.EasingDirection.Out,
+			Enum.EasingStyle.Sine,
+			speed2
+		)
+		wait(speed2)
+		LName.Visible = true
+		LName.Position = UDim2.new(0.207, 0,0.237, 0)
+		LName:TweenPosition(
+			UDim2.new(0.273, 0,0.25, 0),
+			Enum.EasingDirection.Out,
+			Enum.EasingStyle.Sine,
+			speed3
+		)
+		wait(speed3)
+	end
+	
+	introstart()
+	wait(1)
+	Frame:Destroy()
 end
 
 
@@ -713,10 +748,10 @@ end
 -- Down Code
 
 --VynixsisLib:MakeMainWindow("sdsdg", false)
-VynixsisLib:MakeKeySystemWindow("vova", "test")
-VynixsisLib:SendNotification("sfafs", "sdfasf", 1)
-VynixsisLib:SendNotification("sfafs", "sdfasf", 2)
-VynixsisLib:SendNotification("sfafs", "sdfasf", 4)
+--VynixsisLib:MakeKeySystemWindow("vova", "test")
+--VynixsisLib:SendNotification("sfafs", "sdfasf", 1)
+--VynixsisLib:SendNotification("sfafs", "sdfasf", 2)
+--VynixsisLib:SendNotification("sfafs", "sdfasf", 4)
 
 
 
