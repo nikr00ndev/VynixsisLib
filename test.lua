@@ -250,7 +250,7 @@ RootFolderForScripts.Name = VynixsisLib.Settings.Root.Files.ScriptsFolder.Name
 --end
 
 
-function Intro()
+local function Intro()
 	local Frame = Instance.new("Frame")
 	local LImage = Instance.new("ImageLabel")
 	local LName = Instance.new("TextLabel")
@@ -290,8 +290,8 @@ function Intro()
 	LName.TextWrapped = true
 	
 	local function introstart()
-		local speed1 = 0.4
-		local speed2 = 1.2
+		local speed1 = 0.45
+		local speed2 = 0.4
 		local speed3 = 1
 		LImage.Visible = true
 		LName.Visible = false
@@ -332,7 +332,6 @@ end
 -- Up Code
 
 Intro()
-
 
 
 ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
@@ -411,7 +410,7 @@ function VynixsisLib:SendNotification(TitleContent, ContentContent, TimeDelay)
 			Frame.Transparency -= 0.1
 			Title.TextTransparency -= 0.1
 			Content.TextTransparency -= 0.1
-			wait(0.04)
+			task.wait(0.04)
 		end
 	end
 	local function nCloseAnim()
@@ -419,22 +418,21 @@ function VynixsisLib:SendNotification(TitleContent, ContentContent, TimeDelay)
 			Frame.Transparency += 0.1
 			Title.TextTransparency += 0.1
 			Content.TextTransparency += 0.1
-			wait(0.03)
+			task.wait(0.03)
 		end
 	end
 
 	nSendAnim()
-	wait(TimeDelay)
+	task.wait(TimeDelay)
 	nCloseAnim()
-	wait(0.5)
+	task.wait(0.5)
 	Frame:Destroy()
 end
---[[
+
 function VynixsisLib:MakeMainWindow(Name, Icon)
 	local MainFrame = Instance.new("Frame")
 	local MainFrameUICorner = Instance.new("UICorner")
 	local MainFrameUIGradient = Instance.new("UIGradient")
-	local MainFrameUIStroke = Instance.new("UIStroke")
 	local UIFrame = Instance.new("Frame")
 	local UIFrameLibName = Instance.new("TextLabel")
 	local UIFrameLibImage = Instance.new("ImageLabel")
@@ -446,10 +444,10 @@ function VynixsisLib:MakeMainWindow(Name, Icon)
 	local TabFrameSFUIListLayout = Instance.new("UIListLayout")
 	
 	local blackcolor = Color3.fromRGB(0, 0, 0)
-	local redcolor = Color3.fromRGB(255, 0, 0)
+	local color2 = Color3.fromRGB(147, 147, 147)
 	local ColorGradient = ColorSequence.new{
-		ColorSequenceKeypoint.new(0, redcolor),
-		ColorSequenceKeypoint.new(0.3, redcolor),
+		ColorSequenceKeypoint.new(0, color2),
+		ColorSequenceKeypoint.new(0.474, blackcolor),
 		ColorSequenceKeypoint.new(1, blackcolor),
 	}
 	
@@ -463,14 +461,14 @@ function VynixsisLib:MakeMainWindow(Name, Icon)
 	
 	MainFrame.Parent = VynixsisGUI
 	MainFrame.Name = Name
-	MainFrame.BackgroundColor3 = Color3.new(0.184314, 0.184314, 0.184314)
+	MainFrame.BackgroundColor3 = Color3.fromRGB(47, 47, 47)
 	MainFrame.BackgroundTransparency = 0
 	MainFrame.Position = UDim2.new(0.161, 0,0.253, 0)
 	MainFrame.Size = UDim2.new(0, 718,0, 423)
 	MainFrame.Visible = true
 	
 	MainFrameUICorner.Parent = MainFrame
-	MainFrameUICorner.CornerRadius = UDim.new(0.07, 1)
+	MainFrameUICorner.CornerRadius = UDim.new(0.03, 1)
 	
 	MainFrameUIGradient.Parent = MainFrame
 	MainFrameUIGradient.Enabled = true
@@ -478,20 +476,12 @@ function VynixsisLib:MakeMainWindow(Name, Icon)
 	MainFrameUIGradient.Transparency = NumberSequence.new(0.06)
 	MainFrameUIGradient.Color = ColorGradient
 	
-	MainFrameUIStroke.Parent = MainFrame
-	MainFrameUIStroke.ApplyStrokeMode = "Border"
-	MainFrameUIStroke.Color = Color3.new(0, 0, 0)
-	MainFrameUIStroke.LineJoinMode = "Round"
-	MainFrameUIStroke.Thickness = 1
-	MainFrameUIStroke.Transparency = 0
-	MainFrameUIStroke.Enabled = true
-	
 	UIFrame.Parent = MainFrame
 	UIFrame.Name = "Main"
 	UIFrame.BackgroundColor3 = Color3.new(1, 1, 1)
 	UIFrame.BackgroundTransparency = 1
 	UIFrame.Position = UDim2.new(-0.001, 0,-0, 0)
-	UIFrame.Size = UDim2.new(0, 718,0, 40)
+	UIFrame.Size = UDim2.new(0, 718,0, 32)
 	UIFrame.Visible = true
 	
 	UIFrameLibName.Parent = UIFrame
@@ -514,7 +504,7 @@ function VynixsisLib:MakeMainWindow(Name, Icon)
 	UIFrameLibName.TextYAlignment = "Center"
 	UIFrameLibName.FontFace.Weight = Enum.FontWeight.ExtraBold
 end
---]]
+
 function VynixsisLib:MakeKeySystemWindow(Title, ValidKey, OkCallback, GetKeyLink, DestroyCallback)
 	local FrameQQQ = Instance.new("Frame")
 	local FrameUICorner = Instance.new("UICorner")
@@ -693,11 +683,41 @@ function VynixsisLib:MakeKeySystemWindow(Title, ValidKey, OkCallback, GetKeyLink
 			end
 		end)
 	end
+	
+	local function AddDraggingFunctionality(DragPoint, Main)
+	pcall(function()
+		local Dragging, DragInput, MousePos, FramePos = false
+		DragPoint.InputBegan:Connect(function(Input)
+			if Input.UserInputType == Enum.UserInputType.MouseButton1 then
+				Dragging = true
+				MousePos = Input.Position
+				FramePos = Main.Position
 
+				Input.Changed:Connect(function()
+					if Input.UserInputState == Enum.UserInputState.End then
+						Dragging = false
+					end
+				end)
+			end
+		end)
+		DragPoint.InputChanged:Connect(function(Input)
+			if Input.UserInputType == Enum.UserInputType.MouseMovement then
+				DragInput = Input
+			end
+		end)
+		UserInputService.InputChanged:Connect(function(Input)
+			if Input == DragInput and Dragging then
+				local Delta = Input.Position - MousePos
+				TweenService:Create(Main, TweenInfo.new(0.45, Enum.EasingStyle.Quint, Enum.EasingDirection.Out), {Position  = UDim2.new(FramePos.X.Scale,FramePos.X.Offset + Delta.X, FramePos.Y.Scale, FramePos.Y.Offset + Delta.Y)}):Play()
+			end
+		end)
+	end)
+end  
+	
 	CheckKey.MouseButton1Click:Connect(function()
 		if KeyEnter.Text == validedkey then
 			if OkCallback == nil then
-				print("Key: ok")
+				print("[WARNING] Vynixsis: No ok callback")
 				wait(1)
 				FrameQQQ:Destroy()
 			else
@@ -747,11 +767,11 @@ end
 ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
 -- Down Code
 
---VynixsisLib:MakeMainWindow("sdsdg", false)
---VynixsisLib:MakeKeySystemWindow("vova", "test")
---VynixsisLib:SendNotification("sfafs", "sdfasf", 1)
---VynixsisLib:SendNotification("sfafs", "sdfasf", 2)
---VynixsisLib:SendNotification("sfafs", "sdfasf", 4)
+VynixsisLib:MakeKeySystemWindow("vova", "test")
+VynixsisLib:SendNotification("sfafs", "sdfasf", 1)
+VynixsisLib:SendNotification("sfafs", "sdfasf", 2)
+VynixsisLib:SendNotification("sfafs", "sdfasf", 4)
+--VynixsisLib:MakeMainWindow("sigma")
 
 
 
